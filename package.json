@@ -5,7 +5,11 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "webserver": "node_modules/.bin/webpack-dev-server --port 3000 --config web/webpack.config.dev.js --inline --hot --colors"
+    "webServer": "node_modules/.bin/webpack-dev-server --port 3000 --config web/webpack.config.dev.js --inline --hot --colors",
+    "mobilePackager": "react-native start",
+    "iosApp": "react-native run-ios",
+    "emulator": "emulator @Nexus_5X_API_25",
+    "androidApp": "react-native run-android"
   },
   "dependencies": {
     "react": "15.4.2",
