@@ -1,4 +1,5 @@
 import {AppRegistry} from 'react-native';
-import {App} from './App/View/App';
 
-AppRegistry.registerComponent('cld', () => App);
+import {VideoPlayer} from './App/View/VideoApp';
+
+AppRegistry.registerComponent('cld', () => VideoPlayer);
