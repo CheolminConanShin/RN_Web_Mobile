@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View, Platform} from 'react-native';
+import {StyleSheet, Text, View, Platform} from 'react-native';
 
 export class App extends Component {
     render() {
@@ -8,6 +8,9 @@ export class App extends Component {
                 <Text style={styles.welcome}>
                     Hello Conan! This is {Platform.OS} view!!!
                 </Text>
+                <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" data-setup="{}">
+                    <source src="./broadchurch.mp4" type='video/mp4'/>
+                </video>
             </View>
         );
     }
