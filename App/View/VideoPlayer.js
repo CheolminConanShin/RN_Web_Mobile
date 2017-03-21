@@ -110,60 +110,21 @@ export class VideoPlayer extends Component {
         const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
         return (
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.fullScreen} onPress={() => {this.setState({paused: !this.state.paused})}}>
-                    <Video
-                        source={require('../../broadchurch.mp4')}
-                        style={styles.fullScreen}
-                        rate={this.state.rate}
-                        paused={this.state.paused}
-                        volume={this.state.volume}
-                        muted={this.state.muted}
-                        resizeMode={this.state.resizeMode}
-                        onLoad={this.onLoad}
-                        onBuffer={this.onBuffer}
-                        onProgress={this.onProgress}
-                        onEnd={() => { AlertIOS.alert('Done!') }}
-                        repeat={true}
-                    />
-                </TouchableOpacity>
-
-                <View style={styles.controls}>
-                    <View style={styles.generalControls}>
-                        <View style={styles.skinControl}>
-                            {this.renderSkinControl('custom')}
-                            {this.renderSkinControl('native')}
-                            {this.renderSkinControl('embed')}
-                        </View>
-                    </View>
-                    <View style={styles.generalControls}>
-                        <View style={styles.rateControl}>
-                            {this.renderRateControl(0.5)}
-                            {this.renderRateControl(1.0)}
-                            {this.renderRateControl(2.0)}
-                        </View>
-
-                        <View style={styles.volumeControl}>
-                            {this.renderVolumeControl(0.5)}
-                            {this.renderVolumeControl(1)}
-                            {this.renderVolumeControl(1.5)}
-                        </View>
-
-                        <View style={styles.resizeModeControl}>
-                            {this.renderResizeModeControl('cover')}
-                            {this.renderResizeModeControl('contain')}
-                            {this.renderResizeModeControl('stretch')}
-                        </View>
-                    </View>
-
-                    <View style={styles.trackingControls}>
-                        <View style={styles.progress}>
-                            <View style={[styles.innerProgressCompleted, {flex: flexCompleted}]} />
-                            <View style={[styles.innerProgressRemaining, {flex: flexRemaining}]} />
-                        </View>
-                    </View>
-                </View>
-            </View>
+            <Video
+                source={require('../../broadchurch.mp4')}
+                style={styles.nativeVideoControls}
+                rate={this.state.rate}
+                paused={false}
+                volume={this.state.volume}
+                muted={this.state.muted}
+                resizeMode={this.state.resizeMode}
+                onLoad={this.onLoad}
+                onBuffer={this.onBuffer}
+                onProgress={this.onProgress}
+                onEnd={() => { {/*AlertIOS.alert('Done!')*/} }}
+                repeat={true}
+                controls={this.state.controls}
+            />
         );
     }
 

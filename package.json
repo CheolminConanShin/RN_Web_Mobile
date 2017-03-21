@@ -14,6 +14,7 @@
   "dependencies": {
     "react": "15.4.2",
     "react-native": "0.42.0",
+    "react-native-responsive": "^1.0.1",
     "react-native-video": "git+https://github.com/react-native-community/react-native-video.git",
     "react-native-web": "0.0.77"
   },
