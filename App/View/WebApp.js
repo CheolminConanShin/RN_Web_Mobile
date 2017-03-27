@@ -1,30 +1,35 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Platform} from 'react-native';
+import {Styles} from "./Styles";
+import video from 'videojs-contrib-hls';
+import videojs from "video.js";
+window.videojs = videojs;
 
 export class App extends Component {
     render() {
+
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
+            <View>
+                <Text>
                     Hello Conan! This is {Platform.OS} view!!!
                 </Text>
-                <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" data-setup="{}">
-                    <source src="./broadchurch.mp4" type='video/mp4'/>
-                </video>
+                <video id="video-player" controls preload className="video-js"/>
             </View>
         );
     }
+
+    componentDidMount(){
+        let player = videojs("video-player", {html5: {
+            hls: {
+                withCredentials: false}}});
+
+        player.src({
+            src: "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
+            type: 'application/x-mpegURL'
+        });
+        player.play();
+
+    }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    }
-});
+const styles = StyleSheet.create(Styles.base, Styles.rules);
