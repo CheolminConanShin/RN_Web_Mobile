@@ -24,7 +24,8 @@ export class App extends Component {
                 withCredentials: false}}});
 
         player.src({
-            src: "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
+            // src: "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
+            src: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
             type: 'application/x-mpegURL'
         });
         player.play();

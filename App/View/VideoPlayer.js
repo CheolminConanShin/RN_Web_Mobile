@@ -111,7 +111,7 @@ export class VideoPlayer extends Component {
 
         return (
             <Video
-                {/*NOT WORKING FOR iOS: source={{uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8"}}*/}
+                /*NOT WORKING FOR iOS: source={{uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8"}}*/
                 source={{uri: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8"}}
                 style={styles.nativeVideoControls}
                 rate={this.state.rate}
