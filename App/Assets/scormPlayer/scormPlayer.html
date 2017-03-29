@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+
+
+<html lang="ko" class="no-js">
+<!--<![endif]-->
+<head>
+<title>Scorm Viewer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+<link rel="stylesheet" type="text/css" href="jquery-ui-custom.css" />
+<link rel="stylesheet" type="text/css" href="nanoscroller2.css" />
+<link rel="stylesheet" type="text/css" href="scorm_jtree.css" />
+
+
+<script type="text/javascript" src="jquery-1.8.3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="jquery-ui-custom.min.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+  var Request = function() {
+        this.getParameter = function(name) {
+            var rtnval = '';
+            var nowAddress = unescape(location.href);
+            var parameters = (nowAddress.slice(nowAddress.indexOf('?') + 1,
+                    nowAddress.length)).split('&');
+            for (var i = 0; i < parameters.length; i++) {
+                var varName = parameters[i].split('=')[0];
+                if (varName.toUpperCase() == name.toUpperCase()) {
+                    rtnval = parameters[i].split('=')[1];
+                    break;
+                }
+            }
+            return rtnval;
+        }
+    }
+
+  var request = new Request();
+
+  var cntsNid = request.getParameter("cntsNid");
+  var chNid = request.getParameter("chNid");
+  var port =  request.getParameter("port") || '8080';
+
+  var ctxPath = "http://localhost:" + port;
+  var cntsPath;
+
+  /*
+
+  var cmiList = JSON.parse('[{\"cntsNid\":null,\"chNid\":null,\"scrmTocNid\":0,\"fstStuDtm\":null,\"lastStuDtm\":null,\"stuCmptYn\":null,\"cmiId\":\"cmi.completion_status\",\"cmiVal\":\"incomplete\",\"prgsCont\":null}, {\"cntsNid\":null,\"chNid\":null,\"scrmTocNid\":0,\"fstStuDtm\":null,\"lastStuDtm\":null,\"stuCmptYn\":null,\"cmiId\":\"cmi.core.exit\",\"cmiVal\":\"suspend\",\"prgsCont\":null}, {\"cntsNid\":null,\"chNid\":null,\"scrmTocNid\":0,\"fstStuDtm\":null,\"lastStuDtm\":null,\"stuCmptYn\":null,\"cmiId\":\"cmi.core.lesson_status\",\"cmiVal\":\"incomplete\",\"prgsCont\":null}, {\"cntsNid\":null,\"chNid\":null,\"scrmTocNid\":0,\"fstStuDtm\":null,\"lastStuDtm\":null,\"stuCmptYn\":null,\"cmiId\":\"cmi.core.session_time\",\"cmiVal\":\"0000:00:05.71\",\"prgsCont\":null}, {\"cntsNid\":null,\"chNid\":null,\"scrmTocNid\":0,\"fstStuDtm\":null,\"lastStuDtm\":null,\"stuCmptYn\":null,\"cmiId\":\"cmi.exit\",\"cmiVal\":\"suspend\",\"prgsCont\":null}, {\"cntsNid\":null,\"chNid\":null,\"scrmTocNid\":0,\"fstStuDtm\":null,\"lastStuDtm\":null,\"stuCmptYn\":null,\"cmiId\":\"cmi.session_time\",\"cmiVal\":\"PT9M16.82S\",\"prgsCont\":null}, {\"cntsNid\":null,\"chNid\":null,\"scrmTocNid\":0,\"fstStuDtm\":null,\"lastStuDtm\":null,\"stuCmptYn\":null,\"cmiId\":\"cmi.success_status\",\"cmiVal\":\"unknown\",\"prgsCont\":null}, {\"cntsNid\":null,\"chNid\":null,\"scrmTocNid\":0,\"fstStuDtm\":null,\"lastStuDtm\":null,\"stuCmptYn\":null,\"cmiId\":\"cmi.suspend_data\",\"cmiVal\":\"2H1a60708090a0ed1001311501311~27110n6D6a4A30KJQ.6BG30oOYY0w1^1^1^1^1010101010101010101010101010101001^1^002000\",\"prgsCont\":null}]');
+  cmi_data = new Array();
+
+  for ( var x in cmiList){
+    cmi_data[cmiList[x].cmiId] = cmiList[x].cmiVal;
+  }
+  //var cntsPath = 'file:\/\/c:\/cts\/A0001\/CONTENTS\/56\/published\/52048\/4\/';
+  var osType =  '';
+  console.log("osType : "+osType);
+
+*/
+
+</script>
+
+<script type="text/javascript" src="jquery.jstree.js" charset="utf-8"></script>
+<script type="text/javascript" src="jquery.nanoscroller.js" charset="utf-8"></script>
+<script type="text/javascript" src="util.jstree.js" charset="utf-8"></script>
+<script type="text/javascript" src="WebUtil.js" charset="utf-8"></script>
+<script type="text/javascript" src="ScormUtil.js" charset="utf-8"></script>
+<script type="text/javascript" src="Scorm1.2APIImp.js" charset="utf-8"></script>
+<script type="text/javascript" src="Scorm2004APIImp.js" charset="utf-8"></script>
+<script type="text/javascript" src="prg_common.js"></script>
+<script type="text/javascript" src="plyr_common.js"></script>
+<script type="text/javascript" src="epubPrgData.js"></script>
+
+<script type="text/javascript">
+  var storyPlayer;
+  var notExistContentMsg = '콘텐츠가 없습니다. \n관리자에게 문의하십시오.';
+  var closeBeforeMsg = '잠시 기다려주세요. 진도를 반영하는 중입니다.';
+
+  var _PLAYER_FRM;
+  var prgData = new EpubPrgData();
+
+  var _URL_CNTS_DATA = "/selectCntsData.mob"; //.mob
+  var _URL_PRGS_STATE_SAVE = '/updateScormPrgsData.mob'; //.mob
+  var _URL_PRGS_STATE_LIST = '/selectScormPrgsData.mob'; //.mob
+  var prgsSelectUrl = "/selectPrgsData.mob";   // .mob
+  var _URL_MEDIA = '\/lpm\/cms\/cnts\/selectScormMediaUrl.do';
+
+//세션 종료 여부
+  var sessionOutFlg = false;
+
+  // 진행중인 컨텐츠 목차 ID
+  var currentCntsTocId = '0';
+
+  //  강의계획서 트리
+  var jsonData = '';
+  var jsonData2 = '';
+
+  //닫을때 리프레시
+  var callbackFn = '';
+  window.onunload = playerCloseForCallBackCnts;
+  function playerCloseForCallBackCnts() {
+    try {
+      if (callbackFn != null && callbackFn != "") {
+        opener.eval(callbackFn)();
+      }
+    } catch (e) {
+    }
+  }
+
+  var cntsWdth = '';
+  var cntsHeight = '';
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  $(window).load(function () {
+
+    if (!isMobile && cntsWdth != null && cntsHeight != null && cntsWdth != "" && cntsHeight != "" && cntsWdth > 0 && cntsHeight > 0){
+      var mw;
+      var mh;
+      mw = window.outerWidth - window.innerWidth;
+      mh = window.outerHeight - window.innerHeight;
+      window.resizeTo(parseInt(cntsWdth)+mw, parseInt(cntsHeight)+mh);
+    }
+  });
+  //윈도우창 닫힐때
+  //스콤 진도율 비동기화 방식으로 인해 진도율 완료되기 전에 창 닫히지 못하도록 수정
+  if (!isMobile){
+   $(window).bind("beforeunload", function(e){
+    if (!sessionOutFlg && SCORM_UPD_NM != SCORM_UPD_RE_NM){
+      return closeBeforeMsg;
+    }
+  });
+  }
+
+  $(document).ready(function() {
+    // $.ajax({
+    //   url : ctxPath + _URL_CNTS_DATA + "?cntsNid="+cntsNid+"&chNid="+chNid,
+    //   type : "GET",
+    //   dataType : "json",
+    //   async : false,
+    //   success : function(resultData) {
+    //     cntsPath = resultData.cntsFilePathNm;
+    //     currentCntsTocId = resultData.doingCntsTocNid;
+    //     jsonData = JSON.parse(resultData.cmsCntsTocList);
+    //     ready.call();
+    //   },
+    //   error : function(xhr, status, e) {
+    //     alert(e);
+    //   }
+    // });
+
+    var resultData = {'cmsCntsTocList':[{ 'data':
+        { 'title':'eduttov1.5_keyfeature','attr':{'id':6468} },
+        'metadata':{ 'cntsNid':60551,'verSeq':null,'chNid':5245,'chValidTypCd':null,'scrmTocNid':6468,'upperScrmTocNid':null,'scrmTocNm':'eduttov1.5_keyfeature','prgsRfctYn':'N','cntsUrl':null,'level':1,'isLast':'N' },
+        'state':'open',
+        'children':[ {'data':
+          {'title':'eduttov1.5_keyfeature','attr':{'id':6469}},
+          'metadata':{'cntsNid':60551,
+                      'verSeq':null,
+                      'chNid':5245,
+                      'chValidTypCd':null,
+                      'scrmTocNid':6469,
+                      'upperScrmTocNid':6468,
+                      'scrmTocNm':'eduttov1.5_keyfeature',
+                      'prgsRfctYn':'Y',
+                      'cntsUrl':'index_lms.html',
+                      'level':2,'isLast':'Y'},
+        'state':null,'children':null} ] }],
+        'cnNid':5245,
+        'cntsFilePathNm':'/559965/60551_1_enc/',
+        'cntsNid':60551,
+        'doingCntsTocNid':0}
+
+    cntsPath = resultData.cntsFilePathNm;
+    currentCntsTocId = resultData.doingCntsTocNid;
+    jsonData = resultData.cmsCntsTocList;
+    ready.call();
+
+  });
+
+
+  var ready = function() {
+    _PLAYER_FRM = document.cntsPlayerForm;
+    _PLAYER_FRM.cntsNid.value = cntsNid;
+    _PLAYER_FRM.chNid.value = chNid;
+
+    var viewHeight = $(window).height();
+    var menuHeight = viewHeight - $(".menu_tit").outerHeight() - 30;
+
+    $(".menu_wrap .meun_list").css("height", menuHeight + "px");
+    $(".btn_menu").css("top", ((viewHeight - $(".btn_menu").height()) / 2) + "px");
+    //$("#contentFrame").css("height", viewHeight + "px");
+    if (jsonData == null || jsonData == "") {
+      alert(notExistContentMsg);
+      window.open("", "_self").close();
+      return;
+    }
+    _TREE = new UtilTree("cntsPlayerForm", "treeDiv", null, 3, null, null, jsonData);
+    _TREE.init(null, null, "fnSelect", "fnLoaded");
+
+    $(".btn_close").bind('click', function() {
+      $(".btn_menu").show();
+      $(".menu_wrap").toggle("slide", {
+        direction : 'left'
+      });
+    });
+
+    $(".btn_menu").bind('click', function() {
+      $(".menu_wrap").toggle("slide", {
+        direction : 'left'
+      }, function() {
+        $(".btn_menu").hide();
+      });
+    });
+
+    // 노드 Text가 개행될 경우 전체 영역이 선택 되도록 수정.
+
+    var css_string = "";
+    css_string += ".jstree a { height:auto; color:white; line-height: 25px; max-width: 200px; white-space: normal !important; word-wrap: break-word;}";
+
+    $.vakata.css.add_sheet({
+      str : css_string,
+      title : "jstree"
+    });
+
+    //loading Bar
+      $("#loading").css('left','50%');
+      $("#loading").css('top','50%');
+      $("#loading").css("display", "block");
+  }
+
+  // jstree load complete call function
+  function fnLoaded(data) {
+    $("#treeDiv").find("ul:first-child").addClass("nano-content");
+    $("ul.nano-content").css({
+      "margin" : "10px 0 10px 10px",
+      "padding-right" : "10px"
+    });
+
+    $('.nano').nanoScroller({
+      preventPageScrolling : true
+    });
+
+    if (currentCntsTocId > 0) {
+      $("#treeDiv").jstree("select_node", "#" + currentCntsTocId);
+    } else {
+
+      var startNode;
+      $("#treeDiv").find("a").each(function() {
+        var cntsUrl = _TREE.getJson($(this), "cntsUrl");
+        if (isNotEmpty(cntsUrl)) {
+          startNode = $(this);
+          currentCntsTocId = $(this).attr("id");
+          return false;
+        }
+      });
+      $("#treeDiv").jstree("select_node", startNode);
+    }
+    //loading Bar
+//     $("#loading").css("display", "none");
+  }
+
+  // 장/절 선택
+  function fnSelect(data) {
+    var cntsUrl = _TREE.getData(data, "cntsUrl");
+    if (isNotEmpty(cntsUrl)) {
+      currentCntsTocId = _TREE.getData(data, "scrmTocNid");
+      $(".btn_menu").show();
+      if ($(".menu_wrap").is(':visible')) {
+        $(".menu_wrap").toggle("slide", {
+          direction : 'left'
+        });
+      }
+      cntsUrl = encodeURI(cntsPath + cntsUrl);
+
+      $("#contentFrame").attr('src', cntsUrl);
+    }
+    return;
+  }
+
+  // 이전 장/절 이동
+  function fnScormPre() {
+    var preCntsTocId = "";
+    $("#treeDiv").find("a").each(function() {
+      var cntsUrl = _TREE.getJson($(this), "cntsUrl");
+      if (isNotEmpty(cntsUrl)) {
+        if (currentCntsTocId == $(this).attr("id")) {
+          return false;
+        }
+        preCntsTocId = $(this).attr("id");
+      }
+    });
+    //첫장 체크
+    if (preCntsTocId > 0) {
+     // alert('첫장?');
+    }
+    if (preCntsTocId > 0) {
+      $("#treeDiv").jstree("deselect_node", "#" + currentCntsTocId);
+      $("#treeDiv").jstree("select_node", "#" + preCntsTocId);
+    }
+    return false;
+  }
+
+  // 다음 장/절 이동
+  function fnScormNext() {
+    var isNextCntsTocId = false;
+    var nextCntsTocId = "";
+    $("#treeDiv").find("a").each(function() {
+      var cntsUrl = _TREE.getJson($(this), "cntsUrl");
+      if (isNotEmpty(cntsUrl)) {
+        if (isNextCntsTocId) {
+          nextCntsTocId = $(this).attr("id");
+          return false;
+        }
+        if (currentCntsTocId == $(this).attr("id")) {
+          isNextCntsTocId = true;
+        }
+      }
+    });
+    //마지막 장 체크
+    if (nextCntsTocId > 0) {
+     // alert("마지막장?")
+    }
+    if (nextCntsTocId > 0) {
+      $("#treeDiv").jstree("deselect_node", "#" + currentCntsTocId);
+      $("#treeDiv").jstree("select_node", "#" + nextCntsTocId);
+    }
+    return false;
+  }
+
+  $(function(){
+    $("#contentFrame").load(function(){
+      if ($.isFunction($("#contentFrame").get(0).contentWindow.GetPlayer)){
+        storyPlayer = $("#contentFrame").get(0).contentWindow.GetPlayer();
+      }
+    });
+  });
+
+</script>
+</head>
+<body oncontextmenu='return false' style="overflow: hidden;">
+  <form name="cntsPlayerForm" method="post">
+    <input type="hidden" name="cntsNid" /> <input type="hidden" name="chNid" />
+  </form>
+
+
+
+  <div class="wrap" style="visibility: hidden;">
+    <!--
+        <a href="#" class="btn_menu">open</a>
+         -->
+    <div class="menu_wrap" style="display: none;">
+      <div class="menu_bg"></div>
+      <div class="menu">
+        <p class="menu_tit">
+          되는스콤
+        </p>
+        <div id="treeDiv" class="meun_list nano tree_menu btntype jstree">
+          <div class="nano-pane">
+            <div class="nano-slider" style="height: 20px; -webkit-transform: translate(0px, 0px);"></div>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="btn_close">닫기</a>
+    </div>
+  </div>
+<!--
+  <div id="loading" style="display: none;">
+    <img id="loadingImg" src="loading.gif" style="top: 50%; left: 50%; position: absolute; width: 50px; height: 50px; margin-left: -25px; margin-top: -25px;" />
+  </div>
+-->
+
+  <div>
+
+    <iframe id="contentFrame"  name="contentFrame" marginwidth="0" marginheight="0" frameborder="0" style="width:100%; height:100%; position: absolute;" scrolling="no"></iframe>
+  </div>
+</body>
+</html>

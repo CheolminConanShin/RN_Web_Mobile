@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* 로딩 */
+.plyrloadingbox { background: rgba(0,0,0,0);}
+
+.plyrsplus_loader { position:absolute;top:0;left:0;width:100%;height:100%;z-index:2000; }
+.plyrsplus_loader.fixed {position:fixed !important;}
+
+#plyrloader_graphic {
+  position:absolute;top:50%;left:50%;width:42px;height:42px;margin:-21px 0 0 -21px;z-index: 2003;
+  background-image: url('../../img/frt/common/loader_splus.png');background-repeat: no-repeat;
+  display: block;background-size: 800% 100%;
+}
+  #plyrloader_graphic.graphic_01 {background-position: 0 0;}
+  #plyrloader_graphic.graphic_02 {background-position: -42px 0;}
+  #plyrloader_graphic.graphic_03 {background-position: -84px 0;}
+  #plyrloader_graphic.graphic_04 {background-position: -126px 0;}
+  #plyrloader_graphic.graphic_05 {background-position: -168px 0;}
+  #plyrloader_graphic.graphic_06 {background-position: -210px 0;}
+  #plyrloader_graphic.graphic_07 {background-position: -252px 0;}
+  #plyrloader_graphic.graphic_08 {background-position: -294px 0;}
+
+#plyrloaderBg {
+  display: block;width: 80px;height: 80px;position: absolute;top: 50%;left: 50%;margin: -40px 0 0 -40px;z-index: 1999;
+  border-radius: 7px;-webkit-border-radius: 7px;-moz-border-radius: 7px;-ms-border-radius: 7px;
+}

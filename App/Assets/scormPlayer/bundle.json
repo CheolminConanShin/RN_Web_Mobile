@@ -1,0 +1,106 @@
+{
+  "ar" : {
+    "msg.cms.eco.ply.001" : "لا يوجد محتوى. \nاسأل المسؤول.",
+    "msg.cms.eco.ply.069" : "انتظر لحظة. يتم تطبيق التقدم على النظام."
+  },
+  "bg" : {
+    "msg.cms.eco.ply.001" : "Няма съдържание. \nПопитайте администратора.",
+    "msg.cms.eco.ply.069" : "Изчакайте един момент. Системата е в ход на изпълнение."
+  },
+  "de" : {
+    "msg.cms.eco.ply.001" : "Es gibt keinen Inhalt. \nFragen Sie den Administrator.",
+    "msg.cms.eco.ply.069" : "Einen Moment warten. Der Fortschritt wird zum System übertragen."
+  },
+  "en_GB" : {
+    "msg.cms.eco.ply.001" : "There is no content. \nAsk the administrator.",
+    "msg.cms.eco.ply.069" : "Wait a moment. Progress is being applied to the system."
+  },
+  "en" : {
+    "msg.cms.eco.ply.001" : "There is no content. \nAsk the administrator.",
+    "msg.cms.eco.ply.069" : "Wait a moment. Progress is being applied to the system."
+  },
+  "es" : {
+    "msg.cms.eco.ply.001" : "No hay ningún contenido. \nConsulte al administrador.",
+    "msg.cms.eco.ply.069" : "Espere un momento. El progreso se está aplicando al sistema."
+  },
+  "et" : {
+    "msg.cms.eco.ply.001" : "Sisu puudub. \nKüsi administraatorilt.",
+    "msg.cms.eco.ply.069" : "Oota üks hetk. Süsteemi töö on pooleli."
+  },
+  "fa" : {
+    "msg.cms.eco.ply.001" : "هیچ مطلبی وجود ندارد. \nاز سرپرست بپرسید.",
+    "msg.cms.eco.ply.069" : "لطفاً صبر کنید. در حال اعمال پیشرفت در سیستم."
+  },
+  "fr_CA" : {
+    "msg.cms.eco.ply.001" : "Il n’y a aucun contenu. \nDemander à l'administrateur.",
+    "msg.cms.eco.ply.069" : "Veuillez patienter. La progression est appliquée au système."
+  },
+  "fr" : {
+    "msg.cms.eco.ply.001" : "Il n’y a aucun contenu. \nDemander à l'administrateur.",
+    "msg.cms.eco.ply.069" : "Veuillez patienter. La progression est appliquée au système."
+  },
+  "hr" : {
+    "msg.cms.eco.ply.001" : "Nema sadržaja. \nPitajte administratora.",
+    "msg.cms.eco.ply.069" : "Pričekajte trenutak. Napredak se primjenjuje na vaš sustav."
+  },
+  "hu" : {
+    "msg.cms.eco.ply.001" : "Nincs tartalom. \nForduljon az adminisztrátorhoz.",
+    "msg.cms.eco.ply.069" : "Várjon egy kicsit. A folyamatot éppen a rendszerbe illesztjük."
+  },
+  "it" : {
+    "msg.cms.eco.ply.001" : "Nessun contenuto. \nRivolgersi all'amministratore.",
+    "msg.cms.eco.ply.069" : "Attendere. I progressi sono stati registrati nel sistema."
+  },
+  "ja" : {
+    "msg.cms.eco.ply.001" : "コンテンツがありません。\n管理者にお問い合わせください。",
+    "msg.cms.eco.ply.069" : ""
+  },
+  "lt" : {
+    "msg.cms.eco.ply.001" : "Turinio nėra. \nKlauskite administratoriaus.",
+    "msg.cms.eco.ply.069" : "Prašome palaukti. Sistemai taikomi atnaujinimai."
+  },
+  "lv" : {
+    "msg.cms.eco.ply.001" : "Nav satura.  \nSazinieties ar administratoru.",
+    "msg.cms.eco.ply.069" : "Uzgaidiet mirkli. Sistēmai tiek piemērots progress."
+  },
+  "pl" : {
+    "msg.cms.eco.ply.001" : "Brak treści. \nZgłoś się do administratora.",
+    "msg.cms.eco.ply.069" : "Proszę czekać. Postęp jest zapisywany do systemu."
+  },
+  "pt_PT" : {
+    "msg.cms.eco.ply.001" : "Não há qualquer conteúdo. \nPeça ao administrador.",
+    "msg.cms.eco.ply.069" : "Aguarde um momento. O progresso está a ser aplicado ao sistema."
+  },
+  "ru" : {
+    "msg.cms.eco.ply.001" : "Содержания нет. \nСпросить администратора.",
+    "msg.cms.eco.ply.069" : "Подождите. Система обрабатывает процент выполненного."
+  },
+  "sl" : {
+    "msg.cms.eco.ply.001" : "Ni vsebine. \nVprašajte skrbnika.",
+    "msg.cms.eco.ply.069" : "Počakajte trenutek. Napredek se shranjuje v sistem."
+  },
+  "sr" : {
+    "msg.cms.eco.ply.001" : "Nema sadržaja. \nPitajte administratora.",
+    "msg.cms.eco.ply.069" : "Sačekajte trenutak. Napredak se primenjuje u sistemu."
+  },
+  "tr" : {
+    "msg.cms.eco.ply.001" : "İçerik yok. \nYöneticiye danışın.",
+    "msg.cms.eco.ply.069" : "Lütfen biraz bekleyin. İlerleme sisteme uygulanıyor."
+  },
+  "vi" : {
+    "msg.cms.eco.ply.001" : "Không có nội dung nào. \nHỏi quản trị viên.",
+    "msg.cms.eco.ply.069" : "Hãy đợt giây lát. Tiến độ đang được áp dụng vào hệ thống."
+  },
+  "zh_TW" : {
+    "msg.cms.eco.ply.001" : "沒有內容。\n詢問管理員。",
+    "msg.cms.eco.ply.069" : "請稍候。正套用進度到系統。"
+  },
+  "zh" : {
+    "msg.cms.eco.ply.001" : "没有课件。\n请咨询管理员。",
+    "msg.cms.eco.ply.069" : "请稍后。正在反映进度。"
+  },
+  "kr" : {
+    "msg.cms.eco.ply.001" : "콘텐츠가 없습니다. \n관리자에게 문의하십시오.",
+    "msg.cms.eco.ply.069" : "잠시 기다려주세요. 진도를 반영하는 중입니다."
+  }
+}

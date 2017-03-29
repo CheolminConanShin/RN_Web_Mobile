@@ -1,0 +1,192 @@
+html,body,div,span,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li
+	{
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	vertical-align: middle;
+}
+
+.wrap {
+	position: relative;
+	margin: auto;
+}
+
+.btn_menu {
+	width: 40px;
+	height: 0;
+	padding-top: 40px;
+	overflow: hidden;
+	background: url('../image/btn/btn_scorm_menu.jpg') 0 0 no-repeat;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin-top: -20px;
+}
+
+.menu_wrap {
+	width: 335px;
+	font-family: Arial, Helvetica, sans-serif;
+	position: absolute;
+}
+
+.menu_wrap .menu_bg {
+	width: 335px;
+	height: 100%;
+	background: #0e112a;
+	opacity: 0.9;
+	filter: alpha(opacity = 90);
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.menu {
+	position: relative;
+}
+
+.menu_wrap .menu_tit {
+	font-size: 21px;
+	color: #fff;
+	padding: 70px 0 20px 0;
+	border-bottom: 2px solid #414b7d;
+	text-align: center;
+}
+
+.menu_wrap .btn_close {
+	display: block;
+	width: 20px;
+	height: 0;
+	padding-top: 19px;
+	overflow: hidden;
+	background: url('../image/btn/btn_scorm_close.png') 0 0 no-repeat;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+.jstree-default li,.jstree-default ins {
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+
+.jstree-default li {
+	background-position: -90px 0;
+	background-repeat: repeat-y;
+}
+
+.jstree-default li.jstree-last {
+	background: transparent;
+}
+
+.jstree-default .jstree-open>ins {
+	width: 21px;
+	height: 21px;
+	background-image: url('../image/btn/btn_scorm_minus.png');
+}
+
+.jstree-default .jstree-closed>ins {
+	width: 21px;
+	height: 21px;
+	background-image: url('../image/btn/btn_scorm_plus.png');
+}
+
+.jstree-default .jstree-leaf>ins {
+	width: 21px;
+	height: 21px;
+	background-image: url('../image/btn/btn_scorm_hyphen.png');
+}
+
+.jstree-default .jstree-hovered {
+	color: #3582eb;
+}
+
+.jstree-default .jstree-clicked {
+	color: #3582eb;
+}
+
+.jstree-default a .jstree-icon {
+	background-position: -96px 0;
+	display: none;
+}
+
+.jstree-default a.jstree-loading .jstree-icon {
+	background: url("../image/icon/throbber.gif") center center no-repeat !important;
+}
+
+.jstree-default.jstree-focused {
+	border-top: 2px #4fc4f6 solid;
+	border-bottom: 2px #4fc4f6 solid;
+	background: #fff;
+	padding: 15px 0
+}
+
+.jstree-default .jstree-no-dots li,.jstree-default .jstree-no-dots .jstree-leaf>ins
+	{
+	background: transparent;
+}
+
+.jstree-default .jstree-no-dots .jstree-open>ins {
+	background-position: -18px 0;
+}
+
+.jstree-default .jstree-no-dots .jstree-closed>ins {
+	background-position: 0 0;
+}
+
+.jstree-default .jstree-no-icons a .jstree-icon {
+	display: none;
+}
+
+.menu_wrap .meun_list ul {
+	list-style: none;
+	padding: 8px 0 8px 0px;
+}
+
+.menu_wrap .meun_list ul li {
+	list-style: none;
+	font-size: 16px;
+	text-indent: 6px;
+}
+
+#treeDiv {
+	background: transparent;
+	border: 0px
+}
+
+.jstree-default li>ins {
+	vertical-align: top;
+}
+
+.btnPrev {
+	display: inline-block;
+	width: 64px;
+	height: 0;
+	padding-top: 115px;
+	background: url('../image/btn/btn_scorm_left.png') 0 0 no-repeat;
+	overflow: hidden;
+	position: absolute;
+	left: 53px;
+	bottom: 50px;
+}
+
+.btnPrev:hover {
+	background: url('../image/btn/btn_scorm_left_r.png') 0 0 no-repeat;
+}
+
+.btnNext {
+	display: inline-block;
+	width: 64px;
+	height: 0;
+	padding-top: 115px;
+	background: url('../image/btn/btn_scorm_right.png') 0 0 no-repeat;
+	overflow: hidden;
+	position: absolute;
+	right: 53px;
+	bottom: 50px;
+}
+
+.btnNext:hover {
+	background: url('../image/btn/btn_scorm_right_r.png') 0 0 no-repeat;
+}

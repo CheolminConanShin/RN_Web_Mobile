@@ -1,0 +1,1 @@
+function getScoMediaURL(key){ return top.getScoMediaURL(key); } 
